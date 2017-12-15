@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    android:shape="ring"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:dither="true"
+    android:innerRadius="150dp"
+    android:thickness="50dp"
+    android:visible="true"
+    android:useLevel="false"
+    >
+    <corners
+        android:radius="50px"/>
+    <gradient
+        android:startColor="@color/colorPrimaryDark"
+        android:centerColor="#ddd"
+        android:endColor="#999" />
+    <stroke
+        android:color="@color/colorPrimary"
+        android:width="10dp"
+        android:dashGap="10dp"
+        android:dashWidth="10dp"/>
+</shape>
