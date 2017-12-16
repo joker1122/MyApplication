@@ -116,14 +116,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-//        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
+        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
 
-        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
-        drawable.start();
+//        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
+//        drawable.start();
 
 //        final animation manima=new animation();
 //        manima.setDuration(1000);
-//        imageView.startAnimation(manima);
+        imageView.startAnimation(animation);
 
 
         return true;
