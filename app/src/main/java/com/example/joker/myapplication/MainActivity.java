@@ -106,13 +106,13 @@ public class MainActivity extends AppCompatActivity {
 //        setContentView(view);
 //        TextView textView=(TextView)findViewById(R.id.test);
     }
-    public void init(){
-        fragmentManager=getFragmentManager();
-        fragmentTransaction=fragmentManager.beginTransaction();
-        fragment1 f1=new fragment1();
-        fragmentTransaction.replace(R.id.frame_layout,f1);
-        fragmentTransaction.commit();
-    }
+//    public void init(){
+//        fragmentManager=getFragmentManager();
+//        fragmentTransaction=fragmentManager.beginTransaction();
+//        fragment1 f1=new fragment1();
+//        fragmentTransaction.replace(R.id.frame_layout,f1);
+//        fragmentTransaction.commit();
+//    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
