@@ -36,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+/* http://blog.csdn.net/xsf50717/article/details/50472341  */
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager=null;
