@@ -1,5 +1,6 @@
 package com.example.joker.myapplication;
 
+import android.animation.AnimatorSet;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView=null;
     surface view=null;
     Button button=null;
+    final AnimatorSet manimatorset=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
