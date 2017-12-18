@@ -128,4 +128,10 @@ public class MainActivity extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.animation,R.anim.animation);
+    }
 }
