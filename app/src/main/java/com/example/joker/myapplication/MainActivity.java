@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         manima.setDuration(2000);
 
         imageView.startAnimation(manima);
-        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
+//        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
 
         return true;
     }
