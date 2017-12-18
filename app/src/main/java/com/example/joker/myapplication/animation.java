@@ -30,11 +30,14 @@ public class animation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        float f[]={
-                0.5F,-0.5F,0,
-                0.5F,0.5F,0,
-                0,0,1
-        };
-        t.getMatrix().setValues(f);
+        float degree=360*interpolatedTime;
+//        float f[]={
+//                (float) Math.cos(degree),-0.5F,0,
+//                0.5F,0.5F,0,
+//                0,0,1
+//        };
+//        t.getMatrix().setValues(f);
+        t.getMatrix().preRotate(degree);
+
     }
 }

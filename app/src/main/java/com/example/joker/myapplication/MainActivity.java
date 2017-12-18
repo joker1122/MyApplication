@@ -1,6 +1,7 @@
 package com.example.joker.myapplication;
 
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.animation,R.anim.animation);
         imageView=(ImageView)findViewById(R.id.image11);
 
+
 //        test view=new test(getApplicationContext(),null);
 //        setContentView(view);
 //        TextView textView=(TextView)findViewById(R.id.test);
@@ -118,15 +120,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
+//        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
 
 //        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
 //        drawable.start();
 
-//        final animation manima=new animation();
-//        manima.setDuration(1000);
+        final animation manima=new animation();
+        manima.setDuration(2000);
 
-        imageView.startAnimation(animation);
+        imageView.startAnimation(manima);
+        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
 
         return true;
     }
