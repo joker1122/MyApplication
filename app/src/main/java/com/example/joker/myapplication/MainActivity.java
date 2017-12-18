@@ -123,8 +123,8 @@ public class MainActivity extends AppCompatActivity {
 
 //        final animation manima=new animation();
 //        manima.setDuration(1000);
-        imageView.startAnimation(animation);
 
+        imageView.startAnimation(animation);
 
         return true;
     }
