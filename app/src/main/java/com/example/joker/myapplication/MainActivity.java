@@ -145,6 +145,8 @@ public class MainActivity extends AppCompatActivity {
         mvalueanimator.setDuration(3000);
         mvalueanimator.setRepeatCount(-1);
         mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
+        mvalueanimator.setEvaluator(new evalutor());
+        mvalueanimator.setInterpolator(new interpolator());
 //        mvalueanimator.start();
 
         ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/3);

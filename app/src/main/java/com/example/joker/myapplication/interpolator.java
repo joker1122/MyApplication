@@ -12,6 +12,6 @@ public class interpolator implements Interpolator {
 
     @Override
     public float getInterpolation(float input) {
-        return 0;
+        return input;
     }
 }
