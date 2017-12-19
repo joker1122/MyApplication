@@ -12,7 +12,8 @@ public class evalutor implements TypeEvaluator<Integer> {
     @Override
 
     public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
-        return 0;
+
+        return (int)(Math.sin(fraction+Math.PI/2)*(endValue-startValue));
     }
 
 }
