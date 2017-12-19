@@ -13,7 +13,7 @@ public class evalutor implements TypeEvaluator<Integer> {
 
     public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
 
-        return (int)(Math.sin(fraction+Math.PI/2)*(endValue-startValue));
+        return (int)(fraction*(endValue-startValue));
     }
 
 }
