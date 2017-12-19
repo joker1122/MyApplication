@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         mvalueanimator.setInterpolator(new interpolator());
 //        mvalueanimator.start();
 
-        ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/3);
+        ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/2);
         mvalueanimator1.setDuration(2000);
 
         mset.playTogether(mvalueanimator,mvalueanimator1);
