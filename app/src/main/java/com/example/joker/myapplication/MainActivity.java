@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Button button=null;
     private buttonview mbuttonview;
     final AnimatorSet manimatorset=null;
+    ObjectAnimator mvalueanimator=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -141,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         imageView.startAnimation(manima);
 //        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
         AnimatorSet mset=new AnimatorSet();
-        ObjectAnimator mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
+        mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
         mvalueanimator.setDuration(3000);
         mvalueanimator.setRepeatCount(-1);
         mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
@@ -163,6 +164,15 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         overridePendingTransition(R.anim.animation,R.anim.animation);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mvalueanimator!=null && mvalueanimator.isRunning()){
+            mvalueanimator.pause();
+        }
+    }
+
     class buttonview{
         View mview;
         public buttonview(View view){
