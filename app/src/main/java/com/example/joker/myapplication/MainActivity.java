@@ -2,6 +2,7 @@ package com.example.joker.myapplication;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView=null;
     surface view=null;
     Button button=null;
+    private buttonview mbuttonview;
     final AnimatorSet manimatorset=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
@@ -105,7 +107,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.layout3);
         overridePendingTransition(R.anim.animation,R.anim.animation);
         imageView=(ImageView)findViewById(R.id.image11);
-
+        button=(Button)findViewById(R.id.mbutton);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"width:"+v.getWidth(),Toast.LENGTH_SHORT).show();
+            }
+        });
+        mbuttonview=new buttonview(button);
 
 //        test view=new test(getApplicationContext(),null);
 //        setContentView(view);
@@ -131,6 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
         imageView.startAnimation(manima);
 //        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
+        AnimatorSet mset=new AnimatorSet();
+        ObjectAnimator mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
+        mvalueanimator.setDuration(3000);
+        mvalueanimator.setRepeatCount(-1);
+        mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
+//        mvalueanimator.start();
+
+        ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/3);
+        mvalueanimator1.setDuration(2000);
+
+        mset.playTogether(mvalueanimator,mvalueanimator1);
+        mset.start();
 
         return true;
     }
@@ -139,5 +160,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         overridePendingTransition(R.anim.animation,R.anim.animation);
+    }
+    class buttonview{
+        View mview;
+        public buttonview(View view){
+            mview=view;
+        }
+        public void setWidth(int width){
+            mview.getLayoutParams().width=width;
+            mview.requestLayout();
+        }
+        public int getWidth(){
+            return mview.getLayoutParams().width;
+        }
     }
 }
