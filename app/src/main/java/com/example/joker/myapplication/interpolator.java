@@ -12,6 +12,6 @@ public class interpolator implements Interpolator {
 
     @Override
     public float getInterpolation(float input) {
-        return (float)(Math.sin(3000*input));
+        return (float)(Math.sin(input+Math.PI/2-1));
     }
 }

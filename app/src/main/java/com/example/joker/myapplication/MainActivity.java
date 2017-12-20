@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
         AnimatorSet mset=new AnimatorSet();
         mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
         mvalueanimator.setDuration(3000);
-        mvalueanimator.setRepeatCount(-1);
+        mvalueanimator.setRepeatCount(ValueAnimator.INFINITE);
         mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
         mvalueanimator.setEvaluator(new evalutor());
         mvalueanimator.setInterpolator(new interpolator());
