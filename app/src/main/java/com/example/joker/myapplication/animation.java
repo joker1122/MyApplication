@@ -13,9 +13,16 @@ import android.view.animation.Transformation;
 
 public class animation extends Animation {
     private Camera camera;
+    private float locationX;
+    private float locationY;
+    private float locationZ;
+    private float degree;
 
-    public animation() {
-        super();
+    public animation(float locationX,float locationY,float locationZ,float degree) {
+        this.locationX=locationX;
+        this.locationY=locationY;
+        this.locationZ=locationZ;
+        this.degree=degree;
     }
 
     public animation(Context context, AttributeSet attrs) {
@@ -30,14 +37,22 @@ public class animation extends Animation {
 
     @Override
     protected void applyTransformation(float interpolatedTime, Transformation t) {
-        float degree=360*interpolatedTime;
+        final Camera mcamera=camera;
+        final Matrix matrix=t.getMatrix();
+        mcamera.save();
+//        mcamera.translate(300*interpolatedTime,300*interpolatedTime,300*interpolatedTime);
+        mcamera.rotateZ(degree*interpolatedTime);
+        mcamera.getMatrix(matrix);
+        mcamera.restore();
+//        float degree=360*interpolatedTime;
 //        float f[]={
 //                (float) Math.cos(degree),-0.5F,0,
 //                0.5F,0.5F,0,
 //                0,0,1
 //        };
 //        t.getMatrix().setValues(f);
-        t.getMatrix().preRotate(degree);
+//        t.getMatrix().preRotate(degree,300,300);
+//        t.getMatrix().preRotate(degree);
 
     }
 }

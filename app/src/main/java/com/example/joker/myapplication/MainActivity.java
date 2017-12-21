@@ -38,6 +38,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 /* http://blog.csdn.net/xsf50717/article/details/50472341  */
+/*  http://www.jianshu.com/p/34e0fe5f9e31  */
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager=null;
@@ -136,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 //        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
 //        drawable.start();
 
-        final animation manima=new animation();
+        final animation manima=new animation(imageView.getLayoutParams().width/2,imageView.getLayoutParams().height/2,-8,360);
         manima.setDuration(2000);
 
         imageView.startAnimation(manima);
