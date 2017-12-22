@@ -39,20 +39,22 @@ public class animation extends Animation {
     protected void applyTransformation(float interpolatedTime, Transformation t) {
         final Camera mcamera=camera;
         final Matrix matrix=t.getMatrix();
-        mcamera.save();
+//        mcamera.save();
 //        mcamera.translate(300*interpolatedTime,300*interpolatedTime,300*interpolatedTime);
-        mcamera.rotateZ(degree*interpolatedTime);
-        mcamera.getMatrix(matrix);
-        mcamera.restore();
+//        mcamera.rotateY(degree*interpolatedTime);
+//        mcamera.getMatrix(matrix);
+//        mcamera.restore();
 //        float degree=360*interpolatedTime;
 //        float f[]={
 //                (float) Math.cos(degree),-0.5F,0,
 //                0.5F,0.5F,0,
 //                0,0,1
 //        };
-//        t.getMatrix().setValues(f);
-//        t.getMatrix().preRotate(degree,300,300);
-//        t.getMatrix().preRotate(degree);
+//        matrix.setValues(f);
+        matrix.setScale(0.5F*interpolatedTime,0.5F*interpolatedTime);
+        matrix.preRotate(-degree*interpolatedTime);
+//        matrix.preTranslate(-locationX*interpolatedTime,-locationY*interpolatedTime);
+//        matrix.postTranslate(locationX,locationY);
 
     }
 }
