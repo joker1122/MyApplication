@@ -3,6 +3,7 @@ package com.example.joker.myapplication;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.Notification;
@@ -39,6 +40,7 @@ import android.widget.Toolbar;
 
 /* http://blog.csdn.net/xsf50717/article/details/50472341  */
 /*  http://www.jianshu.com/p/34e0fe5f9e31  */
+/*  https://www.jianshu.com/p/6afb0c17df43 */
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager=null;
