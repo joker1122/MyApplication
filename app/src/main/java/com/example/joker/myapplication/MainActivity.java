@@ -14,19 +14,26 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -51,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
     private buttonview mbuttonview;
     final AnimatorSet manimatorset=null;
     ObjectAnimator mvalueanimator=null;
+    WindowManager mwindowmanager=null;
+    mhandle hd=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -75,9 +84,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
         if(getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
+
 //        setContentView(R.layout.activity_main);
 //        testview mtestview=(testview)findViewById(R.id.m_testview);
 
@@ -108,14 +119,25 @@ public class MainActivity extends AppCompatActivity {
 //        view.setZOrderOnTop(true);
 //        view.setZOrderMediaOverlay(true);
 
-        setContentView(R.layout.layout3);
-        overridePendingTransition(R.anim.animation,R.anim.animation);
+//        setContentView(R.layout.layout3);
+//        overridePendingTransition(R.anim.animation,R.anim.animation);
+        mwindowmanager=getWindowManager();
         imageView=(ImageView)findViewById(R.id.image11);
         button=(Button)findViewById(R.id.mbutton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"width:"+v.getWidth(),Toast.LENGTH_SHORT).show();
+                Button mfloatbutton=new Button(MainActivity.this);
+                mfloatbutton.setText("text");
+                mfloatbutton.setBackgroundColor(Color.BLUE);
+                WindowManager.LayoutParams mlayoutparams=new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,0,0, PixelFormat.TRANSPARENT);
+                mlayoutparams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+                mlayoutparams.type=WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG;
+                mlayoutparams.gravity= Gravity.TOP;
+                mlayoutparams.x=300;
+                mlayoutparams.y=100;
+                mwindowmanager.addView(mfloatbutton,mlayoutparams);
             }
         });
         mbuttonview=new buttonview(button);
@@ -188,6 +210,18 @@ public class MainActivity extends AppCompatActivity {
         }
         public int getWidth(){
             return mview.getLayoutParams().width;
+        }
+    }
+    class mhandle extends Handler{
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    getWindowManager().removeViewImmediate(button);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
