@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Scroller;
 
 import java.lang.reflect.Method;
@@ -105,7 +106,9 @@ public class testview extends View {
             case MotionEvent.ACTION_MOVE:
                 mleft=event.getX();
                 mtop=event.getY();
-                Log.d("get","move_msg:"+mleft+"---"+mtop);
+                WindowManager.LayoutParams params=(WindowManager.LayoutParams)getLayoutParams();
+                params.x=(int)mleft;
+                params.y=(int)mtop;
                 break;
         }
 //        invalidate();

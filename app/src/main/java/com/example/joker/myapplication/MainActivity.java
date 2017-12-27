@@ -48,6 +48,7 @@ import android.widget.Toolbar;
 /* http://blog.csdn.net/xsf50717/article/details/50472341  */
 /*  http://www.jianshu.com/p/34e0fe5f9e31  */
 /*  https://www.jianshu.com/p/6afb0c17df43 */
+/*  http://blog.csdn.net/i_lovefish/article/details/8050025   */
 public class MainActivity extends AppCompatActivity {
 
     FragmentManager fragmentManager=null;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView imageView=null;
     surface view=null;
     Button button=null;
+    testview mtest=null;
     private buttonview mbuttonview;
     final AnimatorSet manimatorset=null;
     ObjectAnimator mvalueanimator=null;
@@ -119,8 +121,8 @@ public class MainActivity extends AppCompatActivity {
 //        view.setZOrderOnTop(true);
 //        view.setZOrderMediaOverlay(true);
 
-//        setContentView(R.layout.layout3);
-//        overridePendingTransition(R.anim.animation,R.anim.animation);
+        setContentView(R.layout.layout3);
+        overridePendingTransition(R.anim.animation,R.anim.animation);
         mwindowmanager=getWindowManager();
         imageView=(ImageView)findViewById(R.id.image11);
         button=(Button)findViewById(R.id.mbutton);
@@ -128,16 +130,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"width:"+v.getWidth(),Toast.LENGTH_SHORT).show();
-                Button mfloatbutton=new Button(MainActivity.this);
-                mfloatbutton.setText("text");
-                mfloatbutton.setBackgroundColor(Color.BLUE);
+                mtest=new testview(MainActivity.this);
                 WindowManager.LayoutParams mlayoutparams=new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,0,0, PixelFormat.TRANSPARENT);
                 mlayoutparams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
-                mlayoutparams.type=WindowManager.LayoutParams.TYPE_SYSTEM_DIALOG;
-                mlayoutparams.gravity= Gravity.TOP;
+                mlayoutparams.type=WindowManager.LayoutParams.TYPE_APPLICATION;
                 mlayoutparams.x=300;
                 mlayoutparams.y=100;
-                mwindowmanager.addView(mfloatbutton,mlayoutparams);
+                mwindowmanager.addView(mtest,mlayoutparams);
+                button.setEnabled(false);
             }
         });
         mbuttonview=new buttonview(button);
@@ -161,27 +161,32 @@ public class MainActivity extends AppCompatActivity {
 //        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
 //        drawable.start();
 
-        final animation manima=new animation(imageView.getLayoutParams().width/2,imageView.getLayoutParams().height/2,-8,360);
-        manima.setDuration(2000);
-        manima.setFillAfter(true);
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                final animation manima=new animation(imageView.getLayoutParams().width/2,imageView.getLayoutParams().height/2,-8,360);
+                manima.setDuration(2000);
+                manima.setFillAfter(true);
 
-        imageView.startAnimation(manima);
+                imageView.startAnimation(manima);
 //        ObjectAnimator.ofFloat(imageView,"translationX",imageView.getWidth()/2).start();
-        AnimatorSet mset=new AnimatorSet();
-        mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
-        mvalueanimator.setDuration(3000);
-        mvalueanimator.setRepeatCount(ValueAnimator.INFINITE);
-        mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
-        mvalueanimator.setEvaluator(new evalutor());
-        mvalueanimator.setInterpolator(new interpolator());
+                AnimatorSet mset=new AnimatorSet();
+                mvalueanimator=ObjectAnimator.ofArgb(button,"backgroundColor",0xFFFF8080,0xFF8080FF);
+                mvalueanimator.setDuration(3000);
+                mvalueanimator.setRepeatCount(ValueAnimator.INFINITE);
+                mvalueanimator.setRepeatMode(ValueAnimator.REVERSE);
+                mvalueanimator.setEvaluator(new evalutor());
+                mvalueanimator.setInterpolator(new interpolator());
 //        mvalueanimator.start();
 
-        ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/2);
-        mvalueanimator1.setDuration(2000);
+                ObjectAnimator mvalueanimator1=ObjectAnimator.ofInt(mbuttonview,"width",button.getWidth(),button.getWidth()/2);
+                mvalueanimator1.setDuration(2000);
 
-        mset.playTogether(mvalueanimator,mvalueanimator1);
-        mset.start();
-
+                mset.playTogether(mvalueanimator,mvalueanimator1);
+                mset.start();
+                break;
+            default:
+                break;
+        }
         return true;
     }
 
@@ -196,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         if(mvalueanimator!=null && mvalueanimator.isRunning()){
             mvalueanimator.pause();
+        }
+        if(mtest!=null){
+            mwindowmanager.removeView(mtest);
         }
     }
 
@@ -217,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    getWindowManager().removeViewImmediate(button);
+                    getWindowManager().removeView(button);
                     break;
                 default:
                     break;
