@@ -14,36 +14,27 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.Scroller;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
+
 
 /* http://blog.csdn.net/xsf50717/article/details/50472341  */
 /*  http://www.jianshu.com/p/34e0fe5f9e31  */
@@ -61,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     final AnimatorSet manimatorset=null;
     ObjectAnimator mvalueanimator=null;
     WindowManager mwindowmanager=null;
+    WindowManager.LayoutParams mlayoutparams=null;
     mhandle hd=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
@@ -93,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
 //        setContentView(R.layout.activity_main);
 //        testview mtestview=(testview)findViewById(R.id.m_testview);
-
+//
 //        setContentView(R.layout.layout2);
 //        init();
-
+//
 //        setContentView(R.layout.activity_main);
 //        init();
 //        Log.d("get","activity:"+getCallingActivity());
@@ -131,11 +123,11 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this,"width:"+v.getWidth(),Toast.LENGTH_SHORT).show();
                 mtest=new testview(MainActivity.this);
-                WindowManager.LayoutParams mlayoutparams=new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,0,0, PixelFormat.TRANSPARENT);
+                mlayoutparams=new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT,0,0, PixelFormat.TRANSPARENT);
                 mlayoutparams.flags= WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
                 mlayoutparams.type=WindowManager.LayoutParams.TYPE_APPLICATION;
-                mlayoutparams.x=300;
-                mlayoutparams.y=100;
+                mlayoutparams.x=0;
+                mlayoutparams.y=0;
                 mwindowmanager.addView(mtest,mlayoutparams);
                 button.setEnabled(false);
             }
@@ -157,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
-
+//
 //        AnimationDrawable drawable=(AnimationDrawable)imageView.getBackground();
 //        drawable.start();
 
@@ -183,6 +175,14 @@ public class MainActivity extends AppCompatActivity {
 
                 mset.playTogether(mvalueanimator,mvalueanimator1);
                 mset.start();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if(mlayoutparams!=null){
+                    Log.d("get","msg"+event.getX()+"---"+event.getY());
+                    mlayoutparams.x=(int)event.getX();
+                    mlayoutparams.y=(int)event.getY();
+                    mwindowmanager.updateViewLayout(mtest,mlayoutparams);
+                }
                 break;
             default:
                 break;

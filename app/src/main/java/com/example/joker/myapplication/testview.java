@@ -114,7 +114,19 @@ public class testview extends View {
 //        invalidate();
         return true;
     }
-    public void scrollY(int desX,int desY){
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                return onTouchEvent(event);
+            case MotionEvent.ACTION_MOVE:
+                getParent().requestDisallowInterceptTouchEvent(false);
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    public void scrollY(int desX, int desY){
         int startX=getScrollX();
         int startY=getScrollY();
         Log.d("get","startY:"+startY+"   desY:"+desY);
