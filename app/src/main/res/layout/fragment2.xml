@@ -3,12 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/textview"
-        android:text="fragment2"
-        android:gravity="center"
-        android:textSize="60sp"
+    <!--<TextView-->
+        <!--android:id="@+id/textview"-->
+        <!--android:text="fragment2"-->
+        <!--android:gravity="center"-->
+        <!--android:textSize="60sp"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+    <ImageView
+        android:id="@+id/f_ima"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:src="@drawable/insert"
+        android:background="@drawable/night" />
 
 </LinearLayout>

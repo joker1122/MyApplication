@@ -4,7 +4,14 @@
     android:insetLeft="20dp"
     android:insetTop="20dp"
     android:insetRight="20dp"
-    android:drawable="@drawable/qq"
     android:visible="true">
-
+        <shape android:shape="oval"
+            android:visible="true">
+            <solid android:color="#0f8f00"/>
+            <padding
+                android:bottom="50dp"
+                android:left="50dp"
+                android:right="50dp"
+                android:top="50dp"/>
+        </shape>
 </inset>
