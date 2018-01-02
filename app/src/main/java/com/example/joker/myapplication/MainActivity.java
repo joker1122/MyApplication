@@ -9,10 +9,12 @@ import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     WindowManager mwindowmanager=null;
     WindowManager.LayoutParams mlayoutparams=null;
     mhandle hd=null;
+    mybroadcastreceiver mb=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
@@ -118,6 +121,14 @@ public class MainActivity extends AppCompatActivity {
         mwindowmanager=getWindowManager();
         imageView=(ImageView)findViewById(R.id.image11);
         button=(Button)findViewById(R.id.mbutton);
+
+        IntentFilter mfilter=new IntentFilter();
+        mfilter.addAction("hello");
+        mb=new mybroadcastreceiver();
+        registerReceiver(mb,mfilter);
+        final Intent mint=new Intent();
+        mint.setAction("hello");
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 mlayoutparams.x=0;
                 mlayoutparams.y=0;
                 mwindowmanager.addView(mtest,mlayoutparams);
+                sendBroadcast(mint);
                 button.setEnabled(false);
             }
         });
@@ -205,6 +217,9 @@ public class MainActivity extends AppCompatActivity {
         if(mtest!=null){
             mwindowmanager.removeView(mtest);
         }
+        if(mb!=null){
+           unregisterReceiver(mb);
+        }
     }
 
     class buttonview{
@@ -230,6 +245,12 @@ public class MainActivity extends AppCompatActivity {
                 default:
                     break;
             }
+        }
+    }
+    class mybroadcastreceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+                Log.d("get","hello");
         }
     }
 }

@@ -39,5 +39,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation 'com.google.android.gms:play-services-ads:11.0.4'
-    implementation files('E:\\android project\\Mac_test\\lib\\android.jar')
+    implementation files('/Users/mac/AndroidStudioProjects/joker/lib/android.jar')
 }
