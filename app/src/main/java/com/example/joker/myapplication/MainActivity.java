@@ -160,11 +160,9 @@ public class MainActivity extends AppCompatActivity {
                         }catch (InterruptedException e){
                             e.printStackTrace();
                         }
-
 //                        Message message=Message.obtain();
 //                        message.what=1;
 //                        hd.sendMessage(message);
-
                         mhandle.post(new Runnable() {
                             @Override
                             public void run() {
