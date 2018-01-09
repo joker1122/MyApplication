@@ -24,7 +24,9 @@
         <service
             android:name=".MyService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="true"
+            android:process=":remote"
+            />
 
         <receiver android:name=".my_widget">
             <intent-filter>

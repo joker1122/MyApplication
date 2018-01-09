@@ -20,6 +20,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ import android.widget.Toast;
 /*  http://blog.csdn.net/i_lovefish/article/details/8050025   */
 public class MainActivity extends AppCompatActivity {
 
+//    final ThreadLocal <mhandle> hd=null;
     FragmentManager fragmentManager=null;
     FragmentTransaction fragmentTransaction=null;
     ImageView imageView=null;
@@ -55,18 +57,19 @@ public class MainActivity extends AppCompatActivity {
     ObjectAnimator mvalueanimator=null;
     WindowManager mwindowmanager=null;
     WindowManager.LayoutParams mlayoutparams=null;
-    mhandle hd=null;
     mybroadcastreceiver mb=null;
+    mhandle hd=null;
+    Handler mhandle=null;
     public ServiceConnection serviceConnection=new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
-            IMyAidlInterface.Stub stub=(IMyAidlInterface.Stub)service;
+            IMyAidlInterface myAidlInterface=IMyAidlInterface.Stub.asInterface(service);
             Book book=new Book();
             book.setBookID(1);
             book.setBookNane("Android");
             try{
-                stub.insert(book);
-                Log.d("get",stub.get(1).getBookNane());
+                myAidlInterface.insert(book);
+                Log.d("get",myAidlInterface.get(1).getBookNane());
             }catch (RemoteException e){
                 e.printStackTrace();
             }
@@ -86,12 +89,14 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+
+
 //        setContentView(R.layout.activity_main);
 //        testview mtestview=(testview)findViewById(R.id.m_testview);
-//
+
 //        setContentView(R.layout.layout2);
 //        init();
-//
+
 //        setContentView(R.layout.activity_main);
 //        init();
 //        Log.d("get","activity:"+getCallingActivity());
@@ -129,6 +134,10 @@ public class MainActivity extends AppCompatActivity {
         final Intent mint=new Intent();
         mint.setAction("hello");
 
+        mhandle=new Handler();
+
+        hd=new mhandle();
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,9 +151,32 @@ public class MainActivity extends AppCompatActivity {
                 mwindowmanager.addView(mtest,mlayoutparams);
                 sendBroadcast(mint);
                 button.setEnabled(false);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try{
+                            Thread.currentThread().sleep(3000);
+                            Log.d("get","loop    "+Looper.myLooper());
+                        }catch (InterruptedException e){
+                            e.printStackTrace();
+                        }
+//                        Message message=Message.obtain();
+//                        message.what=1;
+//                        hd.sendMessage(message);
+                        mhandle.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.d("get","mhandle    "+Thread.currentThread().getName());
+                            }
+                        });
+                    }
+                }).start();
             }
         });
         mbuttonview=new buttonview(button);
+
+        Intent mintent=new Intent(this,MyService.class);
+        bindService(mintent,serviceConnection,Context.BIND_AUTO_CREATE);
 
 //        test view=new test(getApplicationContext(),null);
 //        setContentView(view);
@@ -216,9 +248,13 @@ public class MainActivity extends AppCompatActivity {
         }
         if(mtest!=null){
             mwindowmanager.removeView(mtest);
+            mtest=null;
         }
         if(mb!=null){
            unregisterReceiver(mb);
+        }
+        if(serviceConnection!=null) {
+            unbindService(serviceConnection);
         }
     }
 
@@ -240,7 +276,10 @@ public class MainActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             switch (msg.what){
                 case 1:
-                    getWindowManager().removeView(button);
+                    if(mtest!=null){
+                        mwindowmanager.removeView(mtest);
+                        mtest=null;
+                    }
                     break;
                 default:
                     break;
