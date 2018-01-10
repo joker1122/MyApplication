@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             book.setBookNane("Android");
             try{
                 myAidlInterface.insert(book);
-                Log.d("get",myAidlInterface.get(1).getBookNane());
+                Log.d("get","bookName:"+myAidlInterface.get(1).getBookNane());
             }catch (RemoteException e){
                 e.printStackTrace();
             }
@@ -160,10 +160,11 @@ public class MainActivity extends AppCompatActivity {
                         }catch (InterruptedException e){
                             e.printStackTrace();
                         }
-//                        Message message=Message.obtain();
-//                        message.what=1;
-//                        hd.sendMessage(message);
-                        mhandle.post(new Runnable() {
+                        Message message=Message.obtain();
+                        message.what=1;
+                        hd.sendMessage(message);
+                        Handler hh=new Handler(Looper.getMainLooper());
+                        hh.post(new Runnable() {
                             @Override
                             public void run() {
                                 Log.d("get","mhandle    "+Thread.currentThread().getName());
