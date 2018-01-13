@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         mhandle=new Handler();
 
-        hd=new mhandle();
+        hd=new mhandle(Looper.myLooper());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,20 +156,21 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try{
                             Thread.currentThread().sleep(3000);
-                            Log.d("get","loop    "+Looper.myLooper());
+                            Log.d("get","loop    "+Looper.getMainLooper());
                         }catch (InterruptedException e){
                             e.printStackTrace();
                         }
                         Message message=Message.obtain();
                         message.what=1;
                         hd.sendMessage(message);
-                        Handler hh=new Handler(Looper.getMainLooper());
-                        hh.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d("get","mhandle    "+Thread.currentThread().getName());
-                            }
-                        });
+                        Handler hh=new mhandle(Looper.getMainLooper());
+                        hh.sendEmptyMessage(2);
+//                        hh.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Log.d("get","mhandle    "+Thread.currentThread().getName());
+//                            }
+//                        });
                     }
                 }).start();
             }
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @Override
+//    @Override
     public boolean onTouchEvent(MotionEvent event) {
 //        final Animation animation= AnimationUtils.loadAnimation(MainActivity.this,R.anim.animation);
 //
@@ -273,6 +274,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     class mhandle extends Handler{
+        public mhandle(Looper looper){
+            super(looper);
+        }
         @Override
         public void handleMessage(Message msg) {
             switch (msg.what){
@@ -281,6 +285,9 @@ public class MainActivity extends AppCompatActivity {
                         mwindowmanager.removeView(mtest);
                         mtest=null;
                     }
+                    break;
+                case 2:
+                    Log.d("get","main");
                     break;
                 default:
                     break;
